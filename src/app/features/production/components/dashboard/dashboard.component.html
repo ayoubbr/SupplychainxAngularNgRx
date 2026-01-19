@@ -1,0 +1,82 @@
+<div class="production-dashboard">
+    <div class="dashboard-header">
+        <h1>Tableau de Bord Production</h1>
+        <p>Aperçu de la gestion des produits et commandes du production</p>
+    </div>
+
+    <div class="kpi-grid">
+        <div class="kpi-card glass-panel">
+            <div class="kpi-icon">📦</div>
+            <div class="kpi-content">
+                <h3>Stocks Bas</h3>
+                <div class="kpi-value">12</div>
+                <p class="kpi-trend negative">↓ Nécessite attention</p>
+            </div>
+        </div>
+
+        <div class="kpi-card glass-panel">
+            <div class="kpi-icon">🚚</div>
+            <div class="kpi-content">
+                <h3>Commandes en Cours</h3>
+                <div class="kpi-value">5</div>
+                <p class="kpi-trend neutral">→ Stable</p>
+            </div>
+        </div>
+
+        <div class="kpi-card glass-panel">
+            <div class="kpi-icon">🏭</div>
+            <div class="kpi-content">
+                <h3>Fournisseurs Actifs</h3>
+                <div class="kpi-value">28</div>
+                <p class="kpi-trend positive">↑ +2 ce mois</p>
+            </div>
+        </div>
+
+        <div class="kpi-card glass-panel">
+            <div class="kpi-icon">💰</div>
+            <div class="kpi-content">
+                <h3>Dépenses (Mois)</h3>
+                <div class="kpi-value">45k €</div>
+                <p class="kpi-trend positive">↑ Prévu</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-sections">
+        <div class="section-card glass-panel">
+            <h2>Activités Récentes</h2>
+            <ul class="activity-list">
+                <li class="activity-item">
+                    <span class="activity-icon">📝</span>
+                    <div class="activity-details">
+                        <span class="activity-title">Nouvelle commande #CMD-2024-001</span>
+                        <span class="activity-time">Il y a 2h</span>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <span class="activity-icon">⚠️</span>
+                    <div class="activity-details">
+                        <span class="activity-title">Alerte stock: Acier Inox</span>
+                        <span class="activity-time">Il y a 5h</span>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <span class="activity-icon">✅</span>
+                    <div class="activity-details">
+                        <span class="activity-title">Réception fournisseur: MetalWorks</span>
+                        <span class="activity-time">Hier</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-card glass-panel">
+            <h2>Actions Rapides</h2>
+            <div class="quick-actions">
+                <button routerLink="/production/products" class="btn btn-secondary">Ajouter Produit</button>
+                <button routerLink="/production/bill-of-materials" class="btn btn-secondary">Ajouter Bill of Material</button>
+                <button routerLink="/production/production-orders" class="btn btn-secondary">Creer une commande</button>
+            </div>
+        </div>
+    </div>
+</div>

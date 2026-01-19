@@ -1,0 +1,83 @@
+<div class="customers-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Customers</h1>
+      <p>Manage customer database</p>
+    </div>
+     <div class="simple-flex">
+      <button class="btn btn-secondary" routerLink="/delivery/dashboard">
+        <span>📑</span> Dashboard
+      </button>
+      <!-- Assuming there is a dashboard or back button needed, similar to suppliers -->
+      <button class="btn btn-primary" (click)="createCustomer()">
+        <span>+</span> New Customer
+      </button>
+    </div>
+  </div>
+
+  <!-- Data Table -->
+  <div class="table-container glass-panel">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers()">
+          <td><span class="id-badge">#CUST-{{ customer.id }}</span></td>
+          <td class="primary-text">{{ customer.name }}</td>
+          <td>{{ customer.address }}</td>
+          <td>{{ customer.city }}</td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn-icon-small edit" (click)="editCustomer(customer)" title="Edit">✏️</button>
+              <button class="btn-icon-small delete" (click)="deleteCustomer(customer.id)" title="Delete">🗑️</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="customers().length === 0" style="padding: 2rem; text-align: center; color: #94a3b8;">No customers found.</p>
+  </div>
+</div>
+
+<!-- Form Overlay -->
+<div class="form-overlay" *ngIf="showForm">
+  <div class="form-card glass-panel" (click)="$event.stopPropagation()">
+    <div class="form-header">
+      <h2>{{ isEditMode ? 'Edit Customer' : 'New Customer' }}</h2>
+      <button class="close-btn" (click)="closeForm()">✕</button>
+    </div>
+
+    <form class="glass-form" [formGroup]="customerForm" (ngSubmit)="submitCustomer()">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label>Name</label>
+          <input type="text" formControlName="name" placeholder="Customer Name">
+        </div>
+
+        <div class="form-group full-width">
+          <label>Address</label>
+          <input type="text" formControlName="address" placeholder="Address">
+        </div>
+
+        <div class="form-group full-width">
+          <label>City</label>
+          <input type="text" formControlName="city" placeholder="City">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="closeForm()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="customerForm.invalid">
+          {{ isEditMode ? 'Update' : 'Create' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

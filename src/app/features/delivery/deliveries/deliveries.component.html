@@ -1,0 +1,110 @@
+<div class="deliveries-container">
+    <div class="page-header">
+        <div class="header-content">
+            <h1>Deliveries</h1>
+            <p>Manage shipment and logistics</p>
+        </div>
+        <div class="simple-flex">
+            <button class="btn btn-secondary" routerLink="/delivery/dashboard">
+                <span>📑</span> Dashboard
+            </button>
+            <button class="btn btn-primary" (click)="createDelivery()">
+                <span>+</span> New Delivery
+            </button>
+        </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="table-container glass-panel">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Order ID</th>
+                    <th>Driver</th>
+                    <th>Vehicle</th>
+                    <th>Date</th>
+                    <th>Cost</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let delivery of deliveries()">
+                    <td><span class="id-badge">#DEL-{{ delivery.id }}</span></td>
+                    <td><span class="id-badge">#ORD-{{ delivery.orderId }}</span></td>
+                    <td class="primary-text">{{ delivery.driver }}</td>
+                    <td>{{ delivery.vehicle }}</td>
+                    <td>{{ delivery.deliveryDate }}</td>
+                    <td>{{ delivery.totalCost | currency }}</td>
+                    <td>
+                        <span class="status-badge" [ngClass]="{
+              'planned': delivery.status === 'PLANIFIEE',
+              'transit': delivery.status === 'EN_COURS',
+              'delivered': delivery.status === 'LIVREE'
+            }">{{ delivery.status }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p *ngIf="deliveries().length === 0" style="padding: 2rem; text-align: center; color: #94a3b8;">No deliveries
+            found.</p>
+    </div>
+</div>
+
+<!-- Form Overlay -->
+<div class="form-overlay" *ngIf="showForm">
+    <div class="form-card glass-panel" (click)="$event.stopPropagation()">
+        <div class="form-header">
+            <h2>New Delivery</h2>
+            <button class="close-btn" (click)="closeForm()">✕</button>
+        </div>
+
+        <form class="glass-form" [formGroup]="deliveryForm" (ngSubmit)="submitDelivery()">
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label>Order</label>
+                    <select formControlName="orderId">
+                        <option [value]="0" disabled>Select Order</option>
+                        <option *ngFor="let o of availableOrders()" [value]="o.id">
+                            #ORD-{{ o.id }} - {{ o.customer.name }} ({{ o.product.name }})
+                        </option>
+                    </select>
+                    <p *ngIf="availableOrders().length === 0"
+                        style="color: #ef4444; font-size: 0.8rem; margin-top: 4px;">No eligible orders available.</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Driver</label>
+                    <input type="text" formControlName="driver" placeholder="Driver Name">
+                </div>
+
+                <div class="form-group">
+                    <label>Vehicle</label>
+                    <input type="text" formControlName="vehicle" placeholder="Vehicle ID/Type">
+                </div>
+
+                <div class="form-group">
+                    <label>Distance (Km)</label>
+                    <input type="number" formControlName="distanceKm" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label>Cost per Km</label>
+                    <input type="number" formControlName="costPerKm" step="0.01">
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Delivery Date</label>
+                    <input type="date" formControlName="deliveryDate">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" (click)="closeForm()">Cancel</button>
+                <button type="submit" class="btn btn-primary" [disabled]="deliveryForm.invalid">
+                    Create
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

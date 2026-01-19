@@ -1,0 +1,64 @@
+<div class="auth-container">
+  <div class="auth-card glass-panel" style="max-width: 500px;">
+    <div class="auth-header">
+      <h1>Create Account</h1>
+      <p>Join SupplyChainX today</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="glass-form">
+
+      <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" formControlName="firstName" placeholder="John">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" formControlName="lastName" placeholder="Doe">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" formControlName="username" placeholder="johndoe">
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="john@example.com">
+      </div>
+
+      <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="form-group">
+          <label>Role</label>
+          <select formControlName="role"
+                  style="width: 100%; padding: 0.75rem; background: rgba(15,23,42,0.3); border: 1px solid rgba(148,163,184,0.2); border-radius: 8px; color: white;">
+           <option value="" disabled selected>Select a role</option>
+            <option value="ADMIN">ADMIN</option>
+            <option value="CHEF_PRODUCTION">CHEF_PRODUCTION</option>
+            <option value="PLANIFICATEUR">PLANIFICATEUR</option>
+            <option value="SUPERVISEUR_LOGISTIQUE">SUPERVISEUR_LOGISTIQUE</option>
+            <option value="SUPERVISEUR_PRODUCTION">SUPERVISEUR_PRODUCTION</option>
+            <option value="SUPERVISEUR_LIVRAISONS">SUPERVISEUR_LIVRAISONS</option>
+            <option value="RESPONSABLE_LOGISTIQUE">RESPONSABLE_LOGISTIQUE</option>
+            <option value="RESPONSABLE_ACHATS">RESPONSABLE_ACHATS</option>
+            <option value="GESTIONNAIRE_APPROVISIONNEMENT">GESTIONNAIRE_APPROVISIONNEMENT</option>
+            <option value="GESTIONNAIRE_COMMERCIAL">GESTIONNAIRE_COMMERCIAL</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" formControlName="password" placeholder="******">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary full-width" [disabled]="isLoading || registerForm.invalid">
+        {{ isLoading ? 'Creating Account...' : 'Register' }}
+      </button>
+
+      <div class="auth-footer">
+        <p>Already have an account? <a routerLink="/login">Login</a></p>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+<div class="products-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Produits</h1>
+      <p>Inventaire et gestion de la production</p>
+    </div>
+    <div class="simple-flex">
+      <button class="btn btn-secondary" routerLink="/production/dashboard">
+        <span>📑</span> Dashboard
+      </button>
+      <button class="btn btn-primary" (click)="createProduct()">
+        <span>+</span> Nouveau Produit
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading()">Loading...</div>
+
+
+  <!-- Data Table -->
+  <div class="table-container glass-panel">
+    <table class="data-table" *ngIf="!loading() && products().length">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Coût</th>
+          <th>Temps de Prod (mins)</th>
+          <th>Stock</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products()">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.cost | currency:'EUR':'symbol' }}</td>
+          <td>{{ product.productionTime }}</td>
+          <td>{{ product.stock }}</td>
+          <td>
+            <span class="status-badge " [class.warning]="product.stock < 10" [class.success]="product.stock >= 10">
+              {{ product.stock < 10 ? 'LOW' : 'OK' }} </span>
+          </td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn-icon-small edit" title="Modifier" (click)="editProduct(product)">✏️
+              </button>
+              <button class="btn-icon-small delete" (click)="deleteProduct(product.id)" title="Supprimer">🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="!loading() && !products().length">
+      No products found
+    </div>
+
+  </div>
+</div>
+
+<!-- Form Overlay (Hidden by default, toggled by showForm) -->
+<div class="form-overlay" *ngIf="showForm">
+  <div class="form-card glass-panel" (click)="$event.stopPropagation()">
+    <div class="form-header">
+      <h2> {{ isEditMode ? 'Modifier Produit' : 'Nouveau Produit' }}</h2>
+      <button class="close-btn" (click)="showForm = false">✕</button>
+    </div>
+
+    <form class="glass-form" [formGroup]="productForm" (ngSubmit)="submitProduct()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nom du produit</label>
+          <input type="text" formControlName="name" placeholder="Ex: Table basse">
+        </div>
+
+        <div class="form-group">
+          <label>Coût de production</label>
+          <input type="number" formControlName="cost" placeholder="0.00">
+        </div>
+
+        <div class="form-group">
+          <label>Temps de production (min)</label>
+          <input type="number" formControlName="productionTime" placeholder="0">
+        </div>
+
+        <div class="form-group">
+          <label>Stock Initial</label>
+          <input type="number" formControlName="stock" placeholder="0">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="showForm = false">Annuler</button>
+        <button type="submit" class="btn btn-primary"> {{ isEditMode ? 'Mettre à jour' : 'Créer' }}</button>
+      </div>
+    </form>
+  </div>
+</div>

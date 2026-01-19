@@ -1,0 +1,128 @@
+<div class="orders-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Ordres de Production</h1>
+      <p>Planification et suivi de la production</p>
+    </div>
+    <div class="simple-flex">
+      <button class="btn btn-secondary" routerLink="/production/dashboard">
+        <span>📑</span> Dashboard
+      </button>
+      <button class="btn btn-primary" (click)="createOrder()">
+        <span>+</span> Nouvel Ordre
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading()">Loading...</div>
+
+  <!-- Data Table -->
+  <div class="table-container glass-panel">
+    <table class="data-table" *ngIf="!loading() && orders().length">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Produit</th>
+        <th>Quantité</th>
+        <th>Dates</th>
+        <th>Temps Est.</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let order of orders()">
+        <td><span class="id-badge">#{{ order.id }}</span></td>
+        <td class="primary-text">{{ order.productName }}</td>
+        <td>{{ order.quantity }}</td>
+        <td style="font-size: 0.85rem">
+          <div>Début: {{ order.startDate }}</div>
+          <div style="color: #64748b">Fin: {{ order.endDate }}</div>
+        </td>
+        <td>{{ order.productionEstimatedTime ? (order.productionEstimatedTime | number:'1.0-1') + 'min' : '-' }}</td>
+        <td>
+            <span class="status-badge" [ngClass]="{
+                  'info': order.status === 'EN_ATTENTE',
+                  'warning': order.status === 'EN_PRODUCTION',
+                  'success': order.status === 'TERMINE',
+                  'danger': order.status === 'BLOQUE'
+                }">
+              {{ order.status }}
+            </span>
+        </td>
+        <td>
+          <div class="action-buttons">
+            <button class="btn-icon-small edit" title="Modifier" (click)="editOrder(order)">✏️
+            </button>
+            <ng-container *ngIf="order.status === 'EN_ATTENTE'">
+              <button class="btn-icon-small delete" title="Annuler" (click)="cancelOrder(order.id)">🚫
+              </button>
+              <button class="btn-icon-small delete" title="Supprimer"
+                      (click)="deleteOrder(order.id)">🗑️
+              </button>
+            </ng-container>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="!loading() && !orders().length" class="empty-state">
+      No production orders found
+    </div>
+
+  </div>
+</div>
+
+<!-- Form Overlay -->
+<div class="form-overlay" *ngIf="showForm">
+  <div class="form-card glass-panel" (click)="$event.stopPropagation()">
+    <div class="form-header">
+      <h2> {{ isEditMode ? 'Modifier Ordre' : 'Nouvel Ordre de Production' }}</h2>
+      <button class="close-btn" (click)="closeForm()">✕</button>
+    </div>
+
+    <form class="glass-form" [formGroup]="orderForm" (ngSubmit)="submitOrder()">
+      <div class="form-grid">
+        <div class="form-group full-width">
+          <label>Produit</label>
+          <select formControlName="productId">
+            <option [ngValue]="null">Selectionner un produit</option>
+            <option *ngFor="let p of products()" [value]="p.id">
+              {{ p.name }} (Stock: {{ p.stock }})
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Quantité à produire</label>
+          <input type="number" formControlName="quantity" placeholder="1">
+        </div>
+
+        <div class="form-group" *ngIf="isEditMode">
+          <label>Status</label>
+          <select formControlName="status">
+            <option *ngFor="let s of availableStatuses" [value]="s">
+              {{ s }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Date de début</label>
+          <input type="date" formControlName="startDate">
+        </div>
+
+        <div class="form-group">
+          <label>Date de fin (estimée)</label>
+          <input type="date" formControlName="endDate">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="closeForm()">Annuler</button>
+        <button type="submit" class="btn btn-primary"> {{ isEditMode ? 'Mettre à jour' : 'Lancer' }}</button>
+      </div>
+    </form>
+  </div>
+</div>

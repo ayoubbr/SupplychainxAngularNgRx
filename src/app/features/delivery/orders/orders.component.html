@@ -1,0 +1,111 @@
+<div class="orders-container">
+    <div class="page-header">
+        <div class="header-content">
+            <h1>Orders</h1>
+            <p>Manage customer orders</p>
+        </div>
+        <div class="simple-flex">
+            <button class="btn btn-secondary" routerLink="/delivery/dashboard">
+                <span>📑</span> Dashboard
+            </button>
+            <button class="btn btn-primary" (click)="createOrder()">
+                <span>+</span> New Order
+            </button>
+        </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="table-container glass-panel">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Total Cost</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders()">
+                    <td><span class="id-badge">#ORD-{{ order.id }}</span></td>
+                    <td class="primary-text">{{ order.customer.name }}</td>
+                    <td>{{ order.product.name }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>{{ order.productTotalPrice | currency }}</td>
+                    <td>
+                        <span class="status-badge" [ngClass]="{
+              'active': order.status === 'EN_ROUTE',
+              'prepared': order.status === 'EN_PREPARATION',
+              'delivered': order.status === 'LIVREE',
+              'cancelled': order.status === 'ANNULEE'
+            }">{{ order.status }}</span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon-small edit" (click)="editOrder(order)" title="Edit"
+                                *ngIf="order.status !== 'LIVREE' && order.status !== 'ANNULEE'">✏️</button>
+                            <button class="btn-icon-small delete" (click)="cancelOrder(order.id)" title="Cancel"
+                                *ngIf="order.status !== 'LIVREE' && order.status !== 'ANNULEE'">✕</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p *ngIf="orders().length === 0" style="padding: 2rem; text-align: center; color: #94a3b8;">No orders found.</p>
+    </div>
+</div>
+
+<!-- Form Overlay -->
+<div class="form-overlay" *ngIf="showForm">
+    <div class="form-card glass-panel" (click)="$event.stopPropagation()">
+        <div class="form-header">
+            <h2>{{ isEditMode ? 'Edit Order' : 'New Order' }}</h2>
+            <button class="close-btn" (click)="closeForm()">✕</button>
+        </div>
+
+        <form class="glass-form" [formGroup]="orderForm" (ngSubmit)="submitOrder()">
+            <div class="form-grid">
+                <div class="form-group full-width">
+                    <label>Customer</label>
+                    <select formControlName="customerId">
+                        <option [value]="0" disabled>Select Customer</option>
+                        <option *ngFor="let c of customers()" [value]="c.id">{{ c.name }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Product</label>
+                    <select formControlName="productId">
+                        <option [value]="0" disabled>Select Product</option>
+                        <option *ngFor="let p of products()" [value]="p.id">{{ p.name }} (Stock: {{ p.stock }})</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="number" formControlName="quantity" min="1">
+                </div>
+
+                <div class="form-group full-width" *ngIf="isEditMode">
+                    <label>Status</label>
+                    <select formControlName="status">
+                        <option value="EN_PREPARATION">En Préparation</option>
+                        <option value="EN_ROUTE">En Route</option>
+                        <option value="LIVREE">Livrée</option>
+                        <option value="ANNULEE">Annulée</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" (click)="closeForm()">Cancel</button>
+                <button type="submit" class="btn btn-primary" [disabled]="orderForm.invalid">
+                    {{ isEditMode ? 'Update' : 'Create' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

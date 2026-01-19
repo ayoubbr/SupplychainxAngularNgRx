@@ -1,0 +1,82 @@
+<div class="delivery-dashboard">
+    <div class="dashboard-header">
+        <h1>Tableau de Bord Livraison</h1>
+        <p>Aperçu de la gestion des clients, commandes et livraisons</p>
+    </div>
+
+    <div class="kpi-grid">
+        <div class="kpi-card glass-panel">
+            <div class="kpi-icon">👥</div>
+            <div class="kpi-content">
+                <h3>Clients Actifs</h3>
+                <div class="kpi-value">124</div>
+                <p class="kpi-trend positive">↑ +5 ce mois</p>
+            </div>
+        </div>
+
+        <div class="kpi-card glass-panel">
+            <div class="kpi-icon">📦</div>
+            <div class="kpi-content">
+                <h3>Commandes en Attente</h3>
+                <div class="kpi-value">8</div>
+                <p class="kpi-trend negative">↓ Retard possible</p>
+            </div>
+        </div>
+
+        <div class="kpi-card glass-panel">
+            <div class="kpi-icon">🚚</div>
+            <div class="kpi-content">
+                <h3>Livraisons en Cours</h3>
+                <div class="kpi-value">15</div>
+                <p class="kpi-trend positive">→ En temps</p>
+            </div>
+        </div>
+
+        <div class="kpi-card glass-panel">
+            <div class="kpi-icon">✅</div>
+            <div class="kpi-content">
+                <h3>Livrés (Mois)</h3>
+                <div class="kpi-value">450</div>
+                <p class="kpi-trend positive">↑ +12% vs N-1</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-sections">
+        <div class="section-card glass-panel">
+            <h2>Activités Récentes</h2>
+            <ul class="activity-list">
+                <li class="activity-item">
+                    <span class="activity-icon">👤</span>
+                    <div class="activity-details">
+                        <span class="activity-title">Nouveau client ajouté: Tech Solutions</span>
+                        <span class="activity-time">Il y a 1h</span>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <span class="activity-icon">📦</span>
+                    <div class="activity-details">
+                        <span class="activity-title">Commande #CMD-2045 expédiée</span>
+                        <span class="activity-time">Il y a 3h</span>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <span class="activity-icon">🚛</span>
+                    <div class="activity-details">
+                        <span class="activity-title">Livraison #LIV-098 terminée</span>
+                        <span class="activity-time">Hier</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-card glass-panel">
+            <h2>Actions Rapides</h2>
+            <div class="quick-actions">
+                <button routerLink="/delivery/customers" class="btn btn-secondary"> Gérer les Clients</button>
+                <button routerLink="/delivery/orders" class="btn btn-secondary">Voir les Commandes</button>
+                <button routerLink="/delivery/deliveries" class="btn btn-secondary">Suivre les Livraisons</button>
+            </div>
+        </div>
+    </div>
+</div>

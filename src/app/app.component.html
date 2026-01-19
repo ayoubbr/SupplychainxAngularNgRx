@@ -1,0 +1,25 @@
+<app-toast></app-toast>
+
+<div class="app-container">
+  <app-header></app-header>
+<!--    <nav class="main-nav" *ngIf="authService.isAuthenticated()">-->
+<!--        <a routerLink="/" class="logo">SupplyChainX</a>-->
+
+<!--        <div class="nav-links">-->
+<!--            <a routerLink="/production/dashboard" routerLinkActive="active" class="nav-link">Production</a>-->
+<!--            <a routerLink="/procurement/dashboard" routerLinkActive="active" class="nav-link">Procurement</a>-->
+<!--        </div>-->
+
+<!--        <div class="user-menu">-->
+<!--            <a routerLink="/profile" class="profile-link">-->
+<!--                <span>{{ authService.currentUser()?.username?.charAt(0)?.toUpperCase() }}</span>-->
+<!--                {{ authService.currentUser()?.username }}-->
+<!--            </a>-->
+<!--            <button class="btn-logout" (click)="authService.logout()">Logout</button>-->
+<!--        </div>-->
+<!--    </nav>-->
+
+    <main class="main-content">
+        <router-outlet></router-outlet>
+    </main>
+</div>

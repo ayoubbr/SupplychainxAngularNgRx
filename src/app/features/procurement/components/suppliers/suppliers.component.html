@@ -1,0 +1,177 @@
+<div class="suppliers-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>Fournisseurs</h1>
+      <p>Gestion de la base fournisseurs</p>
+    </div>
+    <div class="simple-flex">
+      <button class="btn btn-secondary" routerLink="/procurement/dashboard">
+        <span>📑</span> Dashboard
+      </button>
+      <button class="btn btn-primary" (click)="createSupplier()">
+        <span>+</span> Nouveau Fournisseur
+      </button>
+    </div>
+  </div>
+
+  <!-- Filters / Search -->
+  <div class="filters-bar glass-panel">
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Rechercher un fournisseur..." class="search-input">
+    </div>
+    <div class="filter-actions">
+      <button class="btn btn-secondary btn-icon">⚡ Filtres</button>
+      <button class="btn btn-secondary btn-icon">📥 Exporter</button>
+    </div>
+  </div>
+
+  <!-- Data Table -->
+  <div class="table-container glass-panel">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Contact</th>
+          <th>Note</th>
+          <th>Délai (Jours)</th>
+          <th>Commandes Actives</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--      <tr>-->
+        <!--        <td><span class="id-badge">#SUP-001</span></td>-->
+        <!--        <td class="primary-text">MetalWorks Industries</td>-->
+        <!--        <td>Jean Dupont (jean&#64;metalworks.com)</td>-->
+        <!--        <td>-->
+        <!--          <div class="rating">-->
+        <!--            <span class="star filled">★</span>-->
+        <!--            <span class="star filled">★</span>-->
+        <!--            <span class="star filled">★</span>-->
+        <!--            <span class="star filled">★</span>-->
+        <!--            <span class="star">★</span>-->
+        <!--            <span class="rating-value">4.2</span>-->
+        <!--          </div>-->
+        <!--        </td>-->
+        <!--        <td>5j</td>-->
+        <!--        <td><span class="status-badge active">2 En cours</span></td>-->
+        <!--        <td>-->
+        <!--          <div class="action-buttons">-->
+        <!--            <button class="btn-icon-small edit" title="Modifier">✏️</button>-->
+        <!--            <button class="btn-icon-small delete" title="Supprimer">🗑️</button>-->
+        <!--          </div>-->
+        <!--        </td>-->
+        <!--      </tr>-->
+        <!--      <tr>-->
+        <!--        <td><span class="id-badge">#SUP-002</span></td>-->
+        <!--        <td class="primary-text">Global Logistics Co.</td>-->
+        <!--        <td>Marie Curie (contact&#64;global.log)</td>-->
+        <!--        <td>-->
+        <!--          <div class="rating">-->
+        <!--            <span class="star filled">★</span>-->
+        <!--            <span class="star filled">★</span>-->
+        <!--            <span class="star filled">★</span>-->
+        <!--            <span class="star filled">★</span>-->
+        <!--            <span class="star filled">★</span>-->
+        <!--            <span class="rating-value">4.9</span>-->
+        <!--          </div>-->
+        <!--        </td>-->
+        <!--        <td>2j</td>-->
+        <!--        <td><span class="status-badge active">1 En cours</span></td>-->
+        <!--        <td>-->
+        <!--          <div class="action-buttons">-->
+        <!--            <button class="btn-icon-small edit" title="Modifier">✏️</button>-->
+        <!--            <button class="btn-icon-small delete" title="Supprimer">🗑️</button>-->
+        <!--          </div>-->
+        <!--        </td>-->
+        <!--      </tr>-->
+        <!--      <tr>-->
+        <!--        <td><span class="id-badge">#SUP-003</span></td>-->
+        <!--        <td class="primary-text">FastParts S.A.</td>-->
+        <!--        <td>Pierre Martin (pm&#64;fastparts.fr)</td>-->
+        <!--        <td>-->
+        <!--          <div class="rating">-->
+        <!--            <span class="star filled">★</span>-->
+        <!--            <span class="star filled">★</span>-->
+        <!--            <span class="star filled">★</span>-->
+        <!--            <span class="star">★</span>-->
+        <!--            <span class="star">★</span>-->
+        <!--            <span class="rating-value">3.0</span>-->
+        <!--          </div>-->
+        <!--        </td>-->
+        <!--        <td>12j</td>-->
+        <!--        <td><span class="status-badge inactive">Aucune</span></td>-->
+        <!--        <td>-->
+        <!--          <div class="action-buttons">-->
+        <!--            <button class="btn-icon-small edit" title="Modifier">✏️</button>-->
+        <!--            <button class="btn-icon-small delete" title="Supprimer">🗑️</button>-->
+        <!--          </div>-->
+        <!--        </td>-->
+        <!--      </tr>-->
+        <tr *ngFor="let supplier of suppliers()">
+          <td>#SUP-{{ supplier.id }}</td>
+          <td>{{ supplier.name }}</td>
+          <td>{{ supplier.contact }}</td>
+          <td>{{ supplier.rating }}</td>
+          <td>{{ supplier.leadTime }}j</td>
+          <td>Nombre de commandes (soon)</td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn-icon-small edit" (click)="editSupplier(supplier)">✏️</button>
+              <button class="btn-icon-small delete" (click)="deleteSupplier(supplier.id)">🗑️</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Form Overlay -->
+<div class="form-overlay" *ngIf="showForm">
+  <div class="form-card glass-panel" (click)="$event.stopPropagation()">
+    <div class="form-header">
+      <h2>{{ isEditMode ? 'Modifier Fournisseur' : 'Nouveau Fournisseur' }}</h2>
+      <button class="close-btn" (click)="showForm = false">✕</button>
+    </div>
+
+    <form class="glass-form" [formGroup]="supplierForm" (ngSubmit)="submitSupplier()">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nom de Fournisseur</label>
+          <input type="text" formControlName="name" placeholder="Nom">
+        </div>
+
+        <div class="form-group">
+          <label>Contact Principal (Nom)</label>
+          <input type="text" formControlName="contact" placeholder="Contact">
+        </div>
+
+        <div class="form-group">
+          <label>Délai de livraison moyen (Jours)</label>
+          <input type="number" placeholder="Ex: 5" formControlName="leadTime">
+        </div>
+
+        <div class="form-group">
+          <label>Note Initiale</label>
+          <select formControlName="rating">
+            <option [value]="5">5 ★★★★★</option>
+            <option [value]="4">4 ★★★★☆</option>
+            <option [value]="3">3 ★★★☆☆</option>
+            <option [value]="2">2 ★★☆☆☆</option>
+            <option [value]="1">1 ★☆☆☆☆</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="showForm = false">Annuler</button>
+        <button type="submit" class="btn btn-primary">
+          {{ isEditMode ? 'Mettre à jour' : 'Créer' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
