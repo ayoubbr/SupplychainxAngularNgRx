@@ -11,7 +11,7 @@ import {HeaderComponent} from './shared/components/header/header.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ToastComponent, CommonModule, RouterLink, RouterLinkActive, HeaderComponent],
+  imports: [RouterOutlet, ToastComponent, CommonModule, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

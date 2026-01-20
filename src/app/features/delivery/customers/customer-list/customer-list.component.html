@@ -1,0 +1,14 @@
+@if (loading()) {
+  <div>Loading customers...</div>
+}
+
+<ul>
+  @for (c of customers(); track c.id) {
+    <li>
+      {{ c.name }} - {{ c.city }}
+      <button (click)="onDelete(c.id)">Delete</button>
+    </li>
+  } @empty {
+    <li>No customers found.</li>
+  }
+</ul>

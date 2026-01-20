@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Customer, CustomerRequest } from './delivery.models';
+import { CustomerResponse, CustomerRequest } from './delivery.models';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerApi {
@@ -9,24 +9,24 @@ export class CustomerApi {
 
     constructor(private http: HttpClient) { }
 
-    findAll(): Observable<Customer[]> {
-        return this.http.get<Customer[]>(this.baseUrl);
+    findAll(): Observable<CustomerResponse[]> {
+        return this.http.get<CustomerResponse[]>(this.baseUrl);
     }
 
-    findById(id: number): Observable<Customer> {
-        return this.http.get<Customer>(`${this.baseUrl}/${id}`);
+    findById(id: number): Observable<CustomerResponse> {
+        return this.http.get<CustomerResponse>(`${this.baseUrl}/${id}`);
     }
 
-    findByName(name: string): Observable<Customer[]> {
-        return this.http.get<Customer[]>(`${this.baseUrl}/name/${name}`);
+    findByName(name: string): Observable<CustomerResponse[]> {
+        return this.http.get<CustomerResponse[]>(`${this.baseUrl}/name/${name}`);
     }
 
-    create(request: CustomerRequest): Observable<Customer> {
-        return this.http.post<Customer>(this.baseUrl, request);
+    create(request: CustomerRequest): Observable<CustomerResponse> {
+        return this.http.post<CustomerResponse>(this.baseUrl, request);
     }
 
-    update(id: number, request: CustomerRequest): Observable<Customer> {
-        return this.http.put<Customer>(`${this.baseUrl}/${id}`, request);
+    update(id: number, request: CustomerRequest): Observable<CustomerResponse> {
+        return this.http.put<CustomerResponse>(`${this.baseUrl}/${id}`, request);
     }
 
     delete(id: number): Observable<void> {

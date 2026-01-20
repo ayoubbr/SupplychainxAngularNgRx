@@ -2,14 +2,14 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomerApi } from '../../../api/customer.api';
-import { Customer, CustomerRequest } from '../../../api/delivery.models';
+import { CustomerResponse, CustomerRequest } from '../../../api/delivery.models';
 import { ToastService } from '../../../shared/services/toast.service';
-import { RouterLink } from '@angular/router';
+import {RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
     selector: 'app-customers',
     standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, RouterOutlet],
     templateUrl: './customers.component.html',
     styleUrl: './customers.component.css'
 })
@@ -17,8 +17,8 @@ export class CustomersComponent implements OnInit {
     showForm = false;
     isEditMode = false;
 
-    customers = signal<Customer[]>([]);
-    selectedCustomer = signal<Customer | null>(null);
+    customers = signal<CustomerResponse[]>([]);
+    selectedCustomer = signal<CustomerResponse | null>(null);
     error = signal<string | null>(null);
 
     customerForm;
@@ -57,7 +57,7 @@ export class CustomersComponent implements OnInit {
         this.showForm = true;
     }
 
-    editCustomer(customer: Customer) {
+    editCustomer(customer: CustomerResponse) {
         this.isEditMode = true;
         this.selectedCustomer.set(customer);
         this.showForm = true;

@@ -1,4 +1,4 @@
-export interface Customer {
+export interface CustomerResponse {
     id: number;
     name: string;
     address: string;
@@ -24,7 +24,7 @@ export interface Order {
     quantity: number;
     productTotalPrice: number;
     status: 'EN_PREPARATION' | 'EN_ROUTE' | 'LIVREE' | 'ANNULEE';
-    customer: Customer;
+    customer: CustomerResponse;
     product: ProductResponse;
 }
 

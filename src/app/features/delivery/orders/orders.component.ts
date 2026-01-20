@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderApi } from '../../../api/order.api';
 import { CustomerApi } from '../../../api/customer.api';
 import { ProductionApi, ProductResponse } from '../../../api/production.api';
-import { Order, OrderRequest, Customer } from '../../../api/delivery.models';
+import { Order, OrderRequest, CustomerResponse } from '../../../api/delivery.models';
 import { ToastService } from '../../../shared/services/toast.service';
 import { RouterLink } from '@angular/router';
 
@@ -20,7 +20,7 @@ export class OrdersComponent implements OnInit {
     isEditMode = false;
 
     orders = signal<Order[]>([]);
-    customers = signal<Customer[]>([]);
+    customers = signal<CustomerResponse[]>([]);
     products = signal<ProductResponse[]>([]);
 
     selectedOrder = signal<Order | null>(null);

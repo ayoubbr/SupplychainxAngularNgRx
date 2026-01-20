@@ -14,6 +14,7 @@ import {
 import {authGuard} from './core/guards/auth.guard';
 import {RegisterComponent} from './features/auth/register/register.component';
 import {ProfileComponent} from './features/users/profile/profile.component';
+import {CustomerListComponent} from './features/delivery/customers/customer-list/customer-list.component';
 
 export const routes: Routes = [
   {path: "", component: HomeComponent},
@@ -71,7 +72,13 @@ export const routes: Routes = [
     path: "delivery/customers",
     loadComponent: () => import('./features/delivery/customers/customers.component').then(m => m.CustomersComponent),
     canActivate: [authGuard],
-    data: {roles: ['ROLE_ADMIN']}
+    data: {roles: ['ROLE_ADMIN']},
+    children: [
+      {
+        path: '',
+        component: CustomerListComponent
+      },
+    ]
   },
   {
     path: "delivery/orders",
