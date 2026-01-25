@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
 @Component({
     selector: 'app-orders',
     standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+    imports: [CommonModule, ReactiveFormsModule, RouterLink],
     templateUrl: './orders.component.html',
     styleUrl: './orders.component.css'
 })
@@ -57,8 +57,9 @@ export class OrdersComponent implements OnInit {
     }
 
     loadCustomers() {
-        this.customerService.findAll().subscribe({
-            next: data => this.customers.set(data),
+        // Fetch a large page to simulate findAll for dropdown
+        this.customerService.search(0, 1000, 'name,asc', '').subscribe({
+            next: (data) => this.customers.set(data.content),
             error: () => this.toastService.error('Failed to load customers')
         });
     }

@@ -78,6 +78,18 @@ export const routes: Routes = [
         path: '',
         component: CustomerListComponent
       },
+      {
+        path: 'new',
+        loadComponent: () => import('./features/delivery/customers/customer-form/customer-form.component').then(m => m.CustomerFormComponent)
+      },
+      {
+        path: ':id',
+        loadComponent: () => import('./features/delivery/customers/customer-detail/customer-detail.component').then(m => m.CustomerDetailComponent)
+      },
+      {
+        path: ':id/edit',
+        loadComponent: () => import('./features/delivery/customers/customer-form/customer-form.component').then(m => m.CustomerFormComponent)
+      }
     ]
   },
   {
@@ -95,7 +107,7 @@ export const routes: Routes = [
 
   {path: "login", component: LoginComponent},
   {path: "register", component: RegisterComponent},
-  {path: "profile", component: ProfileComponent},
-  // { path: "profile", component: ProfileComponent, canActivate: [authGuard] }, // Authenticated users only, no specific role checks for basic profile
+  {path: "profile", component: ProfileComponent, canActivate: [authGuard]},
+  // Authenticated users only, no specific role checks for basic profile
   {path: "**", redirectTo: ""},
 ];

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CustomerResponse, CustomerRequest } from './delivery.models';
+import { CustomerResponse, CustomerRequest, PageResponse } from './delivery.models';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerApi {
@@ -9,8 +9,23 @@ export class CustomerApi {
 
     constructor(private http: HttpClient) { }
 
-    findAll(): Observable<CustomerResponse[]> {
-        return this.http.get<CustomerResponse[]>(this.baseUrl);
+    search(page: number, size: number, sort: string, search: string): Observable<PageResponse<CustomerResponse>> {
+        // Backend expects sort='name' and direction='asc/desc'
+        // Input 'sort' is likely 'name,asc' or 'name,desc'
+        const [sortField, sortDirection] = sort.split(',');
+
+        let params: any = {
+            page: page.toString(),
+            size: size.toString(),
+            sort: sortField || 'name',
+            direction: sortDirection || 'asc'
+        };
+
+        if (search) {
+            params.search = search;
+        }
+
+        return this.http.get<PageResponse<CustomerResponse>>(this.baseUrl, { params });
     }
 
     findById(id: number): Observable<CustomerResponse> {
