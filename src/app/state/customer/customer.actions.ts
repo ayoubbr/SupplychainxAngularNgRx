@@ -6,6 +6,7 @@ export const CustomerActions = createActionGroup({
   events: {
     // --- LOAD ALL (Search/Pagination) ---
     'Load Customers': props<{ page: number; size: number; sort: string; search: string }>(),
+    //loadCustomers
     'Load Customers Success': props<{ response: PageResponse<CustomerResponse> }>(),
     'Load Customers Failure': props<{ error: any }>(),
 

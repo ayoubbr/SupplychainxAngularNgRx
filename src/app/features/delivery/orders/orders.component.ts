@@ -7,15 +7,22 @@ import { ProductionApi, ProductResponse } from '../../../api/production.api';
 import { Order, OrderRequest, CustomerResponse } from '../../../api/delivery.models';
 import { ToastService } from '../../../shared/services/toast.service';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faColumns, faPlus, faEdit, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-orders',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, RouterLink],
+    imports: [CommonModule, ReactiveFormsModule, RouterLink, FontAwesomeModule],
     templateUrl: './orders.component.html',
     styleUrl: './orders.component.css'
 })
 export class OrdersComponent implements OnInit {
+    faColumns = faColumns;
+    faPlus = faPlus;
+    faEdit = faEdit;
+    faTimes = faTimes;
+
     showForm = false;
     isEditMode = false;
 

@@ -10,5 +10,4 @@ import { RouterOutlet } from '@angular/router';
     styles: []
 })
 export class CustomersComponent {
-    // Logic moved to specific components (List, Form, Detail) and NgRx Store
 }

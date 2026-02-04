@@ -1,0 +1,35 @@
+[33m❯[39m Building...
+[32m✔[39m Building...
+[1mInitial chunk files[22m  [2m | [22m[1mNames[22m                    [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mchunk-6DUN4CP2.js[39m    [2m | [22m[2m-[22m                        [2m | [22m[36m281.05 kB[39m[2m | [22m               [36m76.66 kB[39m
+[32mmain-YRR4NX3K.js[39m     [2m | [22m[2mmain[22m                     [2m | [22m[36m155.24 kB[39m[2m | [22m               [36m23.45 kB[39m
+[32mchunk-QCJTIFPB.js[39m    [2m | [22m[2m-[22m                        [2m | [22m [36m68.84 kB[39m[2m | [22m               [36m19.56 kB[39m
+[32mchunk-EWXUHG5M.js[39m    [2m | [22m[2m-[22m                        [2m | [22m [36m42.45 kB[39m[2m | [22m                [36m8.62 kB[39m
+[32mpolyfills-B6TNHZQ6.js[39m[2m | [22m[2mpolyfills[22m                [2m | [22m [36m34.58 kB[39m[2m | [22m               [36m11.32 kB[39m
+[32mchunk-FHYCLNNP.js[39m    [2m | [22m[2m-[22m                        [2m | [22m [36m15.67 kB[39m[2m | [22m                [36m5.05 kB[39m
+[32mstyles-IZG5EQ4Y.css[39m  [2m | [22m[2mstyles[22m                   [2m | [22m [36m15.24 kB[39m[2m | [22m                [36m1.57 kB[39m
+[32mchunk-HO4PAWA7.js[39m    [2m | [22m[2m-[22m                        [2m | [22m  [36m1.54 kB[39m[2m | [22m              [36m454 bytes[39m
+[32mchunk-NNKXZEC6.js[39m    [2m | [22m[2m-[22m                        [2m | [22m[36m497 bytes[39m[2m | [22m              [36m497 bytes[39m
+
+[1m [22m                    [2m | [22m[1mInitial total[22m            [2m | [22m[1m[93m615.11 kB[39m[22m[2m | [22m              [1m147.18 kB[22m
+
+[1mLazy chunk files[22m     [2m | [22m[1mNames[22m                    [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mchunk-PRUP6NEI.js[39m    [2m | [22m[2morders-component[22m         [2m | [22m [36m12.85 kB[39m[2m | [22m                [36m3.55 kB[39m
+[32mchunk-OWYBRS3U.js[39m    [2m | [22m[2mdeliveries-component[22m     [2m | [22m [36m10.99 kB[39m[2m | [22m                [36m3.30 kB[39m
+[32mchunk-J3IBTFJF.js[39m    [2m | [22m[2mdashboard-component[22m      [2m | [22m  [36m6.14 kB[39m[2m | [22m                [36m1.79 kB[39m
+[32mchunk-ZQX2PA7D.js[39m    [2m | [22m[2mcustomer-form-component[22m  [2m | [22m  [36m4.96 kB[39m[2m | [22m                [36m1.77 kB[39m
+[32mchunk-TPF6OKO7.js[39m    [2m | [22m[2mcustomer-detail-component[22m[2m | [22m  [36m4.52 kB[39m[2m | [22m                [36m1.59 kB[39m
+[32mchunk-GIHDRRGZ.js[39m    [2m | [22m[2m-[22m                        [2m | [22m[36m552 bytes[39m[2m | [22m              [36m552 bytes[39m
+[32mchunk-PTZXDMAY.js[39m    [2m | [22m[2mcustomers-component[22m      [2m | [22m[36m319 bytes[39m[2m | [22m              [36m319 bytes[39m
+
+Application bundle generation failed. [7.910 seconds]
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mbundle initial exceeded maximum budget. Budget 500.00 kB was not met by 115.11 kB with a total of 615.11 kB.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1msrc/app/features/procurement/components/supply-orders/supply-orders.component.css exceeded maximum budget. Budget 4.00 kB was not met by 4.55 kB with a total of 8.55 kB.[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1msrc/app/features/procurement/components/supply-orders/supply-orders.component.css exceeded maximum budget. Budget 8.00 kB was not met by 547 bytes with a total of 8.55 kB.[0m
+
+[39m[22m

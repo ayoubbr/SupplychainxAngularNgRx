@@ -6,38 +6,38 @@
 
     <div class="kpi-grid">
         <div class="kpi-card glass-panel">
-            <div class="kpi-icon">👥</div>
+            <div class="kpi-icon"><fa-icon [icon]="faUsers"></fa-icon></div>
             <div class="kpi-content">
                 <h3>Clients Actifs</h3>
                 <div class="kpi-value">124</div>
-                <p class="kpi-trend positive">↑ +5 ce mois</p>
+                <p class="kpi-trend positive"><fa-icon [icon]="faArrowUp"></fa-icon> +5 ce mois</p>
             </div>
         </div>
 
         <div class="kpi-card glass-panel">
-            <div class="kpi-icon">📦</div>
+            <div class="kpi-icon"><fa-icon [icon]="faBox"></fa-icon></div>
             <div class="kpi-content">
                 <h3>Commandes en Attente</h3>
                 <div class="kpi-value">8</div>
-                <p class="kpi-trend negative">↓ Retard possible</p>
+                <p class="kpi-trend negative"><fa-icon [icon]="faArrowDown"></fa-icon> Retard possible</p>
             </div>
         </div>
 
         <div class="kpi-card glass-panel">
-            <div class="kpi-icon">🚚</div>
+            <div class="kpi-icon"><fa-icon [icon]="faTruck"></fa-icon></div>
             <div class="kpi-content">
                 <h3>Livraisons en Cours</h3>
                 <div class="kpi-value">15</div>
-                <p class="kpi-trend positive">→ En temps</p>
+                <p class="kpi-trend positive"><fa-icon [icon]="faArrowRight"></fa-icon> En temps</p>
             </div>
         </div>
 
         <div class="kpi-card glass-panel">
-            <div class="kpi-icon">✅</div>
+            <div class="kpi-icon"><fa-icon [icon]="faCheckCircle"></fa-icon></div>
             <div class="kpi-content">
                 <h3>Livrés (Mois)</h3>
                 <div class="kpi-value">450</div>
-                <p class="kpi-trend positive">↑ +12% vs N-1</p>
+                <p class="kpi-trend positive"><fa-icon [icon]="faArrowUp"></fa-icon> +12% vs N-1</p>
             </div>
         </div>
     </div>
@@ -47,21 +47,21 @@
             <h2>Activités Récentes</h2>
             <ul class="activity-list">
                 <li class="activity-item">
-                    <span class="activity-icon">👤</span>
+                    <span class="activity-icon"><fa-icon [icon]="faUsers"></fa-icon></span>
                     <div class="activity-details">
                         <span class="activity-title">Nouveau client ajouté: Tech Solutions</span>
                         <span class="activity-time">Il y a 1h</span>
                     </div>
                 </li>
                 <li class="activity-item">
-                    <span class="activity-icon">📦</span>
+                    <span class="activity-icon"><fa-icon [icon]="faBox"></fa-icon></span>
                     <div class="activity-details">
                         <span class="activity-title">Commande #CMD-2045 expédiée</span>
                         <span class="activity-time">Il y a 3h</span>
                     </div>
                 </li>
                 <li class="activity-item">
-                    <span class="activity-icon">🚛</span>
+                    <span class="activity-icon"><fa-icon [icon]="faTruck"></fa-icon></span>
                     <div class="activity-details">
                         <span class="activity-title">Livraison #LIV-098 terminée</span>
                         <span class="activity-time">Hier</span>

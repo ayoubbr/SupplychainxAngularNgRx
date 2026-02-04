@@ -1,0 +1,40 @@
+<div class="container fade-in">
+    <div class="header">
+        <h2>{{ isEditMode() ? 'Modifier Client' : 'Nouveau Client' }}</h2>
+        <a routerLink="/delivery/customers" class="btn btn-secondary">Retour</a>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-card glass-panel">
+        <div class="form-group">
+            <label for="name">Nom</label>
+            <input id="name" type="text" formControlName="name" class="form-control" placeholder="Nom de l'entreprise">
+            <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="error-msg">
+                Le nom est requis (3-100 caractères).
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Adresse</label>
+            <input id="address" type="text" formControlName="address" class="form-control"
+                placeholder="Adresse complète">
+            <div *ngIf="form.get('address')?.touched && form.get('address')?.invalid" class="error-msg">
+                L'adresse est requise (10-255 caractères).
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="city">Ville</label>
+            <input id="city" type="text" formControlName="city" class="form-control" placeholder="Ville">
+            <div *ngIf="form.get('city')?.touched && form.get('city')?.invalid" class="error-msg">
+                La ville est requise.
+            </div>
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading()">
+                <span *ngIf="loading()" class="spinner"></span>
+                {{ isEditMode() ? 'Mettre à jour' : 'Créer' }}
+            </button>
+        </div>
+    </form>
+</div>

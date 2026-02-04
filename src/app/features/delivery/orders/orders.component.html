@@ -6,10 +6,10 @@
         </div>
         <div class="simple-flex">
             <button class="btn btn-secondary" routerLink="/delivery/dashboard">
-                <span>📑</span> Dashboard
+                <fa-icon [icon]="faColumns"></fa-icon> Dashboard
             </button>
             <button class="btn btn-primary" (click)="createOrder()">
-                <span>+</span> New Order
+                <fa-icon [icon]="faPlus"></fa-icon> New Order
             </button>
         </div>
     </div>
@@ -46,9 +46,11 @@
                     <td>
                         <div class="action-buttons">
                             <button class="btn-icon-small edit" (click)="editOrder(order)" title="Edit"
-                                *ngIf="order.status !== 'LIVREE' && order.status !== 'ANNULEE'">✏️</button>
+                                *ngIf="order.status !== 'LIVREE' && order.status !== 'ANNULEE'"><fa-icon
+                                    [icon]="faEdit"></fa-icon></button>
                             <button class="btn-icon-small delete" (click)="cancelOrder(order.id)" title="Cancel"
-                                *ngIf="order.status !== 'LIVREE' && order.status !== 'ANNULEE'">✕</button>
+                                *ngIf="order.status !== 'LIVREE' && order.status !== 'ANNULEE'"><fa-icon
+                                    [icon]="faTimes"></fa-icon></button>
                         </div>
                     </td>
                 </tr>
@@ -63,7 +65,7 @@
     <div class="form-card glass-panel" (click)="$event.stopPropagation()">
         <div class="form-header">
             <h2>{{ isEditMode ? 'Edit Order' : 'New Order' }}</h2>
-            <button class="close-btn" (click)="closeForm()">✕</button>
+            <button class="close-btn" (click)="closeForm()"><fa-icon [icon]="faTimes"></fa-icon></button>
         </div>
 
         <form class="glass-form" [formGroup]="orderForm" (ngSubmit)="submitOrder()">

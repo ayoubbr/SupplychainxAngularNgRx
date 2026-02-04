@@ -1,14 +1,104 @@
 @if (loading()) {
-  <div>Loading customers...</div>
+<div>Loading customers...</div>
 }
 
-<ul>
-  @for (c of customers(); track c.id) {
-    <li>
-      {{ c.name }} - {{ c.city }}
-      <button (click)="onDelete(c.id)">Delete</button>
-    </li>
-  } @empty {
-    <li>No customers found.</li>
-  }
-</ul>
+
+<div class="container fade-in">
+  <div class="header">
+    <h2>Clients</h2>
+    <a routerLink="/delivery/customers/new" class="btn btn-primary">
+      <span>+</span> Nouveau Client
+    </a>
+  </div>
+
+  <div class="controls glass-panel">
+    <div class="search-box">
+      <input [formControl]="searchControl" type="text" placeholder="Rechercher par nom, adresse, ville..."
+        class="form-control">
+      <span class="search-icon"><fa-icon [icon]="faSearch"></fa-icon></span>
+    </div>
+
+    <div class="display-options">
+      <select [formControl]="sizeControl" class="form-control select">
+        <option [ngValue]="10">10 par page</option>
+        <option [ngValue]="20">20 par page</option>
+        <option [ngValue]="50">50 par page</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="table-container glass-panel">
+    <div *ngIf="loading()" class="loading-overlay">
+      <div class="spinner"></div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th (click)="onSort('name')" [class.active]="currentSort().startsWith('name')">
+            Nom <span class="sort-icon"><fa-icon [icon]="getSortIcon('name')"></fa-icon></span>
+          </th>
+          <th (click)="onSort('address')" [class.active]="currentSort().startsWith('address')">
+            Adresse <span class="sort-icon"><fa-icon [icon]="getSortIcon('address')"></fa-icon></span>
+          </th>
+          <th (click)="onSort('city')" [class.active]="currentSort().startsWith('city')">
+            Ville <span class="sort-icon"><fa-icon [icon]="getSortIcon('city')"></fa-icon></span>
+          </th>
+          <th>Commandes</th>
+          <th style="text-align: right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of customers()" class="table-row">
+          <td>{{ c.name }}</td>
+          <td>{{ c.address }}</td>
+          <td>{{ c.city }}</td>
+          <td>
+            <span class="badge" [class.active]="!c.hasActiveOrders">
+              {{ c.ordersCount || 0 }}
+            </span>
+          </td>
+          <td class="actions-cell">
+            <a [routerLink]="['/delivery/customers', c.id]" class="btn-icon" title="Voir"><fa-icon
+                [icon]="faEye"></fa-icon></a>
+            <a [routerLink]="['/delivery/customers', c.id, 'edit']" class="btn-icon" title="Modifier"><fa-icon
+                [icon]="faEdit"></fa-icon></a>
+            <button (click)="confirmDelete(c)" class="btn-icon delete" title="Supprimer"><fa-icon
+                [icon]="faTrash"></fa-icon></button>
+          </td>
+        </tr>
+        <tr *ngIf="customers().length === 0 && !loading()">
+          <td colspan="5" class="empty-state">
+            Aucun client trouvé.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination" *ngIf="pagination() as p">
+      <span class="page-info">
+        {{ p.totalElements }} clients • Page {{ p.page + 1 }} / {{ p.totalPages }}
+      </span>
+      <div class="page-actions">
+        <button [disabled]="p.page === 0" (click)="onPageChange(p.page - 1)" class="btn-page">Précédent</button>
+        <button [disabled]="p.page >= p.totalPages - 1" (click)="onPageChange(p.page + 1)"
+          class="btn-page">Suivant</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div *ngIf="customerToDelete" class="modal-backdrop">
+  <div class="modal glass-panel">
+    <h3>Confirmer la suppression</h3>
+    <p>Êtes-vous sûr de vouloir supprimer le client <strong>{{ customerToDelete.name }}</strong> ?</p>
+    <div *ngIf="customerToDelete.hasActiveOrders" class="warning-box">
+      ⚠️ Ce client a des commandes actives. La suppression sera probablement bloquée par le serveur.
+    </div>
+    <div class="modal-actions">
+      <button (click)="cancelDelete()" class="btn btn-secondary">Annuler</button>
+      <button (click)="deleteCustomer()" class="btn btn-danger" [disabled]="loading()">Supprimer</button>
+    </div>
+  </div>
+</div>

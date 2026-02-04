@@ -6,15 +6,21 @@ import { OrderApi } from '../../../api/order.api';
 import { Delivery, DeliveryRequest, Order } from '../../../api/delivery.models';
 import { ToastService } from '../../../shared/services/toast.service';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faColumns, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-deliveries',
     standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+    imports: [CommonModule, ReactiveFormsModule, RouterLink, FontAwesomeModule],
     templateUrl: './deliveries.component.html',
     styleUrl: './deliveries.component.css'
 })
 export class DeliveriesComponent implements OnInit {
+    faColumns = faColumns;
+    faPlus = faPlus;
+    faTimes = faTimes;
+
     showForm = false;
 
     deliveries = signal<Delivery[]>([]);

@@ -19,7 +19,6 @@ export const customerReducer = createReducer(
     ...state,
     loadingList: true,
     error: null,
-    // Optimistically update params if provided directly in action
     page: page,
     size: size,
     sort: sort,
